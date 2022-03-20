@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+import { useRouter } from 'next/router';
+
 import {
   Box,
   Button,
@@ -12,6 +14,7 @@ import {
   DrawerCloseButton,
   Flex,
   Heading,
+  IconButton,
   Stack,
   ListItem,
   Link as ChakraLink,
@@ -21,11 +24,11 @@ import {
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
+import { ConditionalWrapper } from '../utils';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[];
@@ -49,15 +52,38 @@ const navItems: NavItem[] = [
 ];
 
 const Navigation = () => {
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
+  const router = useRouter();
+
   return (
     <nav>
       <UnorderedList styleType="none">
-        <Stack direction={['column', 'row']} spacing="6">
+        <Stack direction={{ base: 'column', md: 'row' }} spacing="6">
           {navItems.map(({ name, slug }, index) => (
             <ListItem key={`${slug}-${index}`}>
-              <Link href={`/${slug}`} passHref>
-                <ChakraLink>{name}</ChakraLink>
-              </Link>
+              <ConditionalWrapper
+                condition={!isLargerThan768}
+                wrapper={(children) => (
+                  <Button
+                    variant="link"
+                    onClick={() => router.push(`/${slug}`)}
+                    w="100%"
+                    p={3}
+                  >
+                    {children}
+                  </Button>
+                )}
+              >
+                <Link href={`/${slug}`} passHref>
+                  <ChakraLink
+                    fontSize={isLargerThan768 ? 17 : 28}
+                    fontWeight="normal"
+                    color="black"
+                  >
+                    {name}
+                  </ChakraLink>
+                </Link>
+              </ConditionalWrapper>
             </ListItem>
           ))}
         </Stack>
@@ -101,9 +127,12 @@ const Header = ({ onOpen, buttonRef }: HeaderProps) => {
               </Flex>
             </Link>
             {!isLargerThan768 && (
-              <Button variant="outline" onClick={onOpen} ref={buttonRef}>
-                <HamburgerIcon w={8} h={8} color="white" />
-              </Button>
+              <IconButton
+                onClick={onOpen}
+                ref={buttonRef}
+                backgroundColor="transparent"
+                icon={<HamburgerIcon w={8} h={8} color="black" />}
+              />
             )}
             {isLargerThan768 && <Navigation />}
           </Flex>
@@ -141,6 +170,7 @@ const Layout = ({ children }: LayoutProps) => {
             placement="right"
             onClose={onClose}
             finalFocusRef={buttonRef}
+            size="xs"
           >
             <DrawerOverlay />
             <DrawerContent>

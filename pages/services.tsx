@@ -87,6 +87,8 @@ const Service = ({ heading, text, items }: ServiceProps) => {
 };
 
 const Services: NextPage = () => {
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
+
   return (
     <Layout>
       <Container maxW="container.md" mt={6}>
@@ -94,9 +96,9 @@ const Services: NextPage = () => {
       </Container>
       <Container maxW="container.xl">
         <Stack
-          direction={['column', 'row']}
+          direction={{ base: 'column', md: 'row' }}
           justifyContent="space-around"
-          alignItems="baseline"
+          alignItems={!isLargerThan768 ? 'center' : 'baseline'}
           mt={4}
         >
           <Box mt={4}>
