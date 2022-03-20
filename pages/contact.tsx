@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 import { Formik, Field, Form, FormikHelpers, FormikErrors } from 'formik';
 
@@ -39,6 +40,7 @@ const validateForm = (values: Values) => {
 };
 
 const Contact: NextPage = () => {
+  const router = useRouter();
   return (
     <Layout>
       <Container maxW="container.md" mt={6}>
@@ -48,14 +50,20 @@ const Contact: NextPage = () => {
         <Formik
           initialValues={{ name: '', email: '', message: '' }}
           validate={validateForm}
-          onSubmit={(
+          onSubmit={async (
             values: Values,
-            { setSubmitting }: FormikHelpers<Values>
+            { setSubmitting, resetForm }: FormikHelpers<Values>
           ) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 500);
+            setSubmitting(true);
+            const data = await fetch(`/api/contact`, {
+              method: 'POST',
+              body: JSON.stringify(values),
+            });
+
+            if (data) {
+              resetForm();
+              //   router.push('/');
+            }
           }}
         >
           {({
@@ -147,7 +155,8 @@ const Contact: NextPage = () => {
                 <Button
                   type="submit"
                   colorScheme="blue"
-                  isDisabled={isSubmitting || JSON.stringify(errors) !== '{}'}
+                  isLoading={isSubmitting}
+                  isDisabled={JSON.stringify(errors) !== '{}'}
                 >
                   Send
                 </Button>
