@@ -126,6 +126,7 @@ const Header = ({ onOpen, buttonRef }: HeaderProps) => {
             {!isLargerThan768 && (
               <IconButton
                 onClick={onOpen}
+                //@ts-ignore
                 ref={buttonRef}
                 backgroundColor="transparent"
                 icon={<HamburgerIcon w={8} h={8} color="black" />}
@@ -149,7 +150,7 @@ const getFormattedPathName = (path: String) => {
 const Layout = ({ children }: LayoutProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
-  const buttonRef = useRef<HTMLHeadingElement>(null);
+  const buttonRef = useRef<HTMLInputElement | null>(null);
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
   return (
