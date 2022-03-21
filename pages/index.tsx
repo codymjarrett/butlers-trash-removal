@@ -14,13 +14,11 @@ interface YouTubeVideoProps {
 }
 
 const YouTubeVideo = ({ embedId, title }: YouTubeVideoProps) => {
-  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
-
   return (
     <div>
       <iframe
         width="560"
-        height={isLargerThan768 ? '315' : '200'}
+        height="315"
         src={`https://www.youtube.com/embed/${embedId}`}
         title={title}
         frameBorder="0"
@@ -35,7 +33,9 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Container maxW="container.sm">
-        <Heading>What is Butler&apos;s Trash Removal?</Heading>
+        <Heading textAlign="center">
+          What is Butler&apos;s Trash Removal?
+        </Heading>
         <Text mt={3}>
           Butler’s Trash Removal is a Valet Trash Pickup Amenity Service,
           locally owned and operated in the DC Metropolitan Area. We offer a

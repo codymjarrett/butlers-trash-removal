@@ -63,7 +63,7 @@ const Navigation = () => {
                 wrapper={(children) => (
                   <Button
                     variant="link"
-                    onClick={() => router.push(`/${slug}`)}
+                    onClick={() => router.push(`${slug}`)}
                     w="100%"
                     p={3}
                   >
@@ -71,7 +71,7 @@ const Navigation = () => {
                   </Button>
                 )}
               >
-                <Link href={`/${slug}`} passHref>
+                <Link href={`${slug}`} passHref>
                   <ChakraLink
                     fontSize={isLargerThan768 ? 17 : 28}
                     fontWeight="normal"
@@ -93,11 +93,7 @@ const Header = ({ onOpen, buttonRef }: HeaderProps) => {
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
   return (
-    <Box
-      backgroundColor="white"
-      boxShadow="base"
-      // p={isLargerThan768 ? 2 : 1}
-    >
+    <Box backgroundColor="white" boxShadow="base">
       <header>
         <Container maxW="container.lg">
           <Flex justify="space-between" alignItems="center">
@@ -105,9 +101,9 @@ const Header = ({ onOpen, buttonRef }: HeaderProps) => {
               <Flex alignItems="center">
                 <Box mr={2}>
                   <Image
-                    src="/images/butler-icon-2.svg"
-                    width={isLargerThan768 ? 75 : 50}
-                    height={isLargerThan768 ? 75 : 50}
+                    src="/butler-icon-2.svg"
+                    width={50}
+                    height={50}
                     alt="Butler's trash Removal"
                     className="logo"
                   />
@@ -174,19 +170,21 @@ const Layout = ({ children }: LayoutProps) => {
               <DrawerCloseButton />
               <DrawerHeader>
                 <Flex direction="column">
-                  <Text
-                    fontSize={['lg', 'xl']}
-                    color="black"
-                    className="main-title"
-                    textAlign="center"
-                  >
-                    Butler&apos;s Trash Removal
-                  </Text>
+                  <Box>
+                    <Text
+                      fontSize={['lg', 'xl']}
+                      color="black"
+                      className="main-title"
+                      textAlign="center"
+                    >
+                      Butler&apos;s Trash Removal
+                    </Text>
+                  </Box>
                   <Image
-                    src="/images/butler-icon-2.svg"
-                    width="100"
-                    height="100"
+                    src="/butler-icon-2.svg"
                     alt="Butler's trash Removal"
+                    width={75}
+                    height={100}
                   />
                 </Flex>
               </DrawerHeader>
