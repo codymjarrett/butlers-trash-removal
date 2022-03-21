@@ -1,29 +1,15 @@
 import type { NextPage } from 'next';
 import {
   Box,
-  Button,
   Container,
   Heading,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  Flex,
   Stack,
   ListItem,
-  Link as ChakraLink,
-  //   Image,
   Text,
   UnorderedList,
-  useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
-// import Head from 'next/head';
-// import Image from 'next/image';
-// import styles from '../styles/Home.module.css';
+
 import Layout from '../components/Layout';
 
 interface ServiceProps {
@@ -58,11 +44,8 @@ const residentBenefits = {
 };
 
 const Service = ({ heading, text, items }: ServiceProps) => {
-  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
-
   return (
     <Box
-      //   borderWidth="1px"
       borderRadius="lg"
       boxShadow="2xl"
       maxW="md"

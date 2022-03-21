@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 import { Formik, Field, Form, FormikHelpers, FormikErrors } from 'formik';
@@ -55,14 +55,16 @@ const Contact: NextPage = () => {
             { setSubmitting, resetForm }: FormikHelpers<Values>
           ) => {
             setSubmitting(true);
-            const data = await fetch(`/api/contact`, {
+            const data = await fetch(`/api/contact/`, {
               method: 'POST',
               body: JSON.stringify(values),
+              headers: new Headers({
+                'Content-Type': 'application/json',
+              }),
             });
 
             if (data) {
               resetForm();
-              //   router.push('/');
             }
           }}
         >

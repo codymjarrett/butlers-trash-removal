@@ -1,13 +1,11 @@
 import React, { useRef } from 'react';
 import { useRouter } from 'next/router';
-
 import {
   Box,
   Button,
   Container,
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
@@ -18,7 +16,6 @@ import {
   Stack,
   ListItem,
   Link as ChakraLink,
-  //   Image,
   Text,
   UnorderedList,
   useDisclosure,
@@ -162,7 +159,6 @@ const Layout = ({ children }: LayoutProps) => {
       </Head>
       <Box backgroundColor="gray.50" height="100vh">
         <Header onOpen={onOpen} buttonRef={buttonRef} />
-        {/* <Flex justify="center" mt={2}></Flex> */}
         <Box mt={10}>{children}</Box>
         {!isLargerThan768 && (
           <Drawer
@@ -193,7 +189,6 @@ const Layout = ({ children }: LayoutProps) => {
                   />
                 </Flex>
               </DrawerHeader>
-
               <DrawerBody>
                 <Navigation />
               </DrawerBody>
