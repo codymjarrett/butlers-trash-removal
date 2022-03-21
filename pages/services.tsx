@@ -54,14 +54,16 @@ const Service = ({ heading, text, items }: ServiceProps) => {
       textAlign="center"
       backgroundColor="white"
     >
-      <Heading mt={2} size="sm">
+      <Heading mt={2} size="md">
         {heading}
       </Heading>
-      <Text mt={2}>{text}</Text>
+      <Text mt={2} fontSize={{ base: 'md', md: 'xl' }}>
+        {text}
+      </Text>
       <UnorderedList mt={2}>
         {items.map((item, index) => (
           <ListItem key={index} mt={1} textAlign="left">
-            {item}
+            <Text fontSize={{ base: 'md', md: 'xl' }}>{item}</Text>
           </ListItem>
         ))}
       </UnorderedList>

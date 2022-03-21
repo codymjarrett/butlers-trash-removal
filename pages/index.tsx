@@ -1,6 +1,8 @@
 import {
   AspectRatio,
+  Box,
   Container,
+  Flex,
   Heading,
   Text,
   useMediaQuery,
@@ -32,31 +34,33 @@ const YouTubeVideo = ({ embedId, title }: YouTubeVideoProps) => {
 const Home: NextPage = () => {
   return (
     <Layout>
-      <Container maxW="container.sm">
+      <Container maxW="container.lg">
         <Heading textAlign="center">
           What is Butler&apos;s Trash Removal?
         </Heading>
-        <Text mt={3}>
+        <Text mt={5} fontSize={{ base: 'md', md: 'xl' }} textAlign="center">
           Butler’s Trash Removal is a Valet Trash Pickup Amenity Service,
           locally owned and operated in the DC Metropolitan Area. We offer a
           seamless door to door trash removal service to Apartment homes,
           Condominiums, Dormitories, Senior Living Homes, Commercial &
           Residential Properties.
         </Text>
-        <Text mt={3}>
+        <Text mt={3} fontSize={{ base: 'md', md: 'xl' }} textAlign="center">
           Take pride in knowing you’ll be adding the #1 Amenity that you and
           your residents can enjoy. Keeping your community tidy and clean, so
           your property keeps its value, while adding to it. This is a PERFECT
           amenity for your community. We pride ourselves on delivering your
           disposables, with the care they don’t deserve.
         </Text>
-        <Text mt={3}>
+        <Text mt={3} fontSize={{ base: 'md', md: 'xl' }} textAlign="center">
           This is a PERFECT amenity for your community. We pride ourselves on
           delivering your disposables, with the care they don’t deserve.
         </Text>
-        <AspectRatio maxW="560px" maxH="315px" mt={3}>
+        {/* <Flex> */}
+        <AspectRatio maxW="560px" maxH="315px" mt={10} ml="auto" mr="auto">
           <YouTubeVideo embedId="XVZCiNCn3dk" title="Butler's Trash Removal" />
         </AspectRatio>
+        {/* </Flex> */}
       </Container>
     </Layout>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 import { Formik, Field, Form, FormikHelpers, FormikErrors } from 'formik';
 
@@ -13,7 +12,9 @@ import {
   FormHelperText,
   Heading,
   Input,
+  Stack,
   Textarea,
+  useMediaQuery,
 } from '@chakra-ui/react';
 
 import Layout from '../components/Layout';
@@ -40,13 +41,12 @@ const validateForm = (values: Values) => {
 };
 
 const Contact: NextPage = () => {
-  const router = useRouter();
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
+
   return (
     <Layout>
-      <Container maxW="container.md" mt={6}>
-        <Heading textAlign="center">Contact Us</Heading>
-      </Container>
       <Container maxW="container.md" mt={5}>
+        <Heading textAlign="center">Contact Us</Heading>
         <Formik
           initialValues={{ name: '', email: '', message: '' }}
           validate={validateForm}
@@ -77,61 +77,81 @@ const Contact: NextPage = () => {
             errors,
           }) => (
             <Form onSubmit={handleSubmit}>
-              <Field id="name" name="name">
-                {({ field, form }: { field: typeof Field; form: any }) => (
-                  <Box>
-                    <FormControl
-                      isInvalid={form.errors.name && form.touched.name}
-                    >
-                      <FormLabel htmlFor="name">Name</FormLabel>
-                      <Input
-                        {...field}
-                        id="name"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.name}
-                        variant="filled"
-                      />
-                      {form.errors.name ? (
-                        <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                      ) : (
-                        <FormHelperText>Enter your name</FormHelperText>
-                      )}
-                    </FormControl>
-                  </Box>
-                )}
-              </Field>
-              <Field id="email" name="email">
-                {({ field, form }: { field: typeof Field; form: any }) => (
-                  <Box mt={5}>
-                    <FormControl
-                      isInvalid={form.errors.email && form.touched.email}
-                    >
-                      <FormLabel htmlFor="email">Email</FormLabel>
-                      <Input
-                        {...field}
-                        id="email"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.email}
-                        variant="filled"
-                      />
-                      {form.errors.email ? (
-                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                      ) : (
-                        <FormHelperText>Enter your email</FormHelperText>
-                      )}
-                    </FormControl>
-                  </Box>
-                )}
-              </Field>
+              <Stack
+                direction={{ base: 'column', md: 'row' }}
+                spacing={8}
+                mt={6}
+              >
+                <Field id="name" name="name">
+                  {({ field, form }: { field: typeof Field; form: any }) => (
+                    <Box width={isLargerThan768 ? 'half' : 'full'}>
+                      <FormControl
+                        isInvalid={form.errors.name && form.touched.name}
+                      >
+                        <FormLabel htmlFor="name" fontSize="lg">
+                          Name
+                        </FormLabel>
+                        <Input
+                          {...field}
+                          id="name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.name}
+                          variant="filled"
+                        />
+                        {form.errors.name ? (
+                          <FormErrorMessage>
+                            {form.errors.name}
+                          </FormErrorMessage>
+                        ) : (
+                          <FormHelperText fontSize="lg">
+                            Enter your name
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </Box>
+                  )}
+                </Field>
+                <Field id="email" name="email">
+                  {({ field, form }: { field: typeof Field; form: any }) => (
+                    <Box mt={5} width={isLargerThan768 ? 'half' : 'full'}>
+                      <FormControl
+                        isInvalid={form.errors.email && form.touched.email}
+                      >
+                        <FormLabel htmlFor="email" fontSize="lg">
+                          Email
+                        </FormLabel>
+                        <Input
+                          {...field}
+                          id="email"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.email}
+                          variant="filled"
+                        />
+                        {form.errors.email ? (
+                          <FormErrorMessage>
+                            {form.errors.email}
+                          </FormErrorMessage>
+                        ) : (
+                          <FormHelperText fontSize="lg">
+                            Enter your email
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </Box>
+                  )}
+                </Field>
+              </Stack>
               <Field id="message" name="message">
                 {({ field, form }: { field: typeof Field; form: any }) => (
                   <Box mt={5}>
                     <FormControl
                       isInvalid={form.errors.message && form.touched.message}
                     >
-                      <FormLabel htmlFor="message">Message</FormLabel>
+                      <FormLabel htmlFor="message" fontSize="lg">
+                        Message
+                      </FormLabel>
                       <Textarea
                         {...field}
                         id="message"
@@ -145,7 +165,7 @@ const Contact: NextPage = () => {
                           {form.errors.message}
                         </FormErrorMessage>
                       ) : (
-                        <FormHelperText>
+                        <FormHelperText fontSize="lg">
                           Please provide a message
                         </FormHelperText>
                       )}
